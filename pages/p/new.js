@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Editor } from 'slate-react';
 import Plain from 'slate-plain-serializer';
+import { PageNameEditor } from 'components/editors/PageNameEditor';
 
 const initialVal = Plain.deserialize(
   `The quick brown fox jumps over the lazy dog.`
@@ -17,12 +18,19 @@ class New extends Component {
     this.setState({ val: change.value });
   };
 
+  onKeyDown = (event, editor, next) => {
+    console.log(event.key);
+    return next();
+  };
+
   render() {
     return (
-      <Editor
-        value={this.state.val}
-        onChange={this.onChange}
-      />
+      <PageNameEditor/>
+      // <Editor
+      //   value={this.state.val}
+      //   onChange={this.onChange}
+      //   onKeyDown={this.onKeyDown}
+      // />
     );
   }
 }
