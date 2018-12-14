@@ -14,7 +14,11 @@
     [
       "module-resolver",
       {
-        "root": ["."]
+        "root": ["."],
+        "alias": {
+          "@": "./components",
+          "#": "./styles"
+        }
       }
     ]
   ]
