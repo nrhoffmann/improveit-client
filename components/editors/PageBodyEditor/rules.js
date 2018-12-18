@@ -22,6 +22,30 @@ export const Paragraph = {
   },
 };
 
+export const Title = {
+  deserialize(el, next) {
+    if (el.tagName.toLowerCase() == 'h1') {
+      return {
+        object: 'block',
+        type: 'title',
+        data: {
+          className: el.getAttribute('class')
+        },
+        nodes: next(el.childNodes),
+      };
+    }
+  },
+  serialize(obj, children) {
+    if (obj.object == 'block' && obj.type == 'title') {
+      return (
+        <h1 className={obj.data.get('className')}>
+          {children}
+        </h1>
+      );
+    }
+  },
+};
+
 export const Quote = {
   deserialize(el, next) {
     if (el.tagName.toLowerCase() == 'blockquote') {
