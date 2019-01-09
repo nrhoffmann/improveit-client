@@ -1,7 +1,8 @@
 import dynamic from 'next/dynamic';
+import Skeleton from './skeleton';
 
 const DynamicLoadedEditor = dynamic(() => import('./editor'), {
-  loading: () => (<p>Loading ...</p>),
+  loading: Skeleton,
   ssr: false,
 });
 

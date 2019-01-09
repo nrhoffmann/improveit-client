@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 
-import { PageNameEditor } from '@/editors/PageNameEditor';
 import PageBodyEditor from '@/editors/PageBodyEditor';
+import Header from '@/layout/Header';
 
-const Header = styled.div`
-  height: 8rem;
-  width: 100vw;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: lightgray;
-`
+// const Header = styled.div`
+//   height: 8rem;
+//   width: 100vw;
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   background: lightgray;
+// `
+
+
 const Body = styled.div`
   margin-top: 8rem;
 `
@@ -25,17 +27,9 @@ class New extends Component {
 
   render() {
     return (
-      // <div>
-      //   <Header>
-      //     <InputGroup>
-      //       <div><span>improveit.page/p/</span></div>
-      //       <input type="text"></input>
-      //     </InputGroup>
-      //   </Header>
-        <Body>
-          <PageBodyEditor/>
-        </Body>
-      // </div>
+      <div>
+        <PageBodyEditor/>
+      </div>
     );
   }
 }

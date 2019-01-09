@@ -19,7 +19,7 @@ export default class MyDocument extends Document {
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,600"/>
           {this.props.styleTags}
         </Head>
-        <body className="container">
+        <body>
           <Main />
           <NextScript />
         </body>

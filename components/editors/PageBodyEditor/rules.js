@@ -24,13 +24,10 @@ export const Paragraph = {
 
 export const Title = {
   deserialize(el, next) {
-    if (el.tagName.toLowerCase() == 'h1') {
+    if (el.tagName.toLowerCase() == 'h2') {
       return {
         object: 'block',
         type: 'title',
-        data: {
-          className: el.getAttribute('class')
-        },
         nodes: next(el.childNodes),
       };
     }
@@ -38,9 +35,30 @@ export const Title = {
   serialize(obj, children) {
     if (obj.object == 'block' && obj.type == 'title') {
       return (
-        <h1 className={obj.data.get('className')}>
+        <h2 className="p-title">
           {children}
-        </h1>
+        </h2>
+      );
+    }
+  },
+};
+
+export const Heading = {
+  deserialize(el, next) {
+    if (el.tagName.toLowerCase() == 'h6') {
+      return {
+        object: 'block',
+        type: 'heading',
+        nodes: next(el.childNodes),
+      };
+    }
+  },
+  serialize(obj, children) {
+    if (obj.object == 'block' && obj.type == 'heading') {
+      return (
+        <h6 className="p-heading">
+          {children}
+        </h6>
       );
     }
   },

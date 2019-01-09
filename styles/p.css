@@ -1,0 +1,10 @@
+.p-title {
+  text-align: center;
+}
+
+.p-heading {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .2rem;
+  margin-bottom: 1rem;
+}

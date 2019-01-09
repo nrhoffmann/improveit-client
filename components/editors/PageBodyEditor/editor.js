@@ -6,30 +6,47 @@ import Html from 'slate-html-serializer';
 
 import * as rules from './rules';
 import * as shortcuts from './shortcuts';
-import Toolbar from './toolbar';
 
-const Paper = styled.div`
-  padding: 8px;
-  border: 1px solid #777;
-  box-shadow: 0 10px 6px -6px #777;
+import '#/p.css';
+import Page from '@/layout/Page';
+import Header from '@/layout/Header';
+import { GrayMatter } from '_/css-vars';
+
+const Toolbar = styled.div`
+  float: left;
+  box-sizing: border-box;
+  width: 22%;
+  position: fixed;
+  height: 100vh;
+  background: ${GrayMatter};
 `
 
-const ToolbarButton = styled.button`
-  /* border: unset; */
+const Content = styled.div`
+  float: right;
+  box-sizing: border-box;
+  width: 78%;
 `
 
 const HtmlSerializer = new Html({
   rules: Object.values(rules)
 });
 
+const initialValue = localStorage.getItem('content') || '<p></p>';
+
+
 export default class PageBodyEditor extends Component {
   state = {
-    value: HtmlSerializer.deserialize('<p></p>'),
+    value: HtmlSerializer.deserialize(initialValue),
   };
 
   onChange = ({ value }) => {
-    this.setState({ value })
-  };
+    if (value.document != this.state.value.document) {
+      const string = HtmlSerializer.serialize(value);
+      localStorage.setItem('content', string);
+    }
+
+    this.setState({ value });
+  };  
 
   onKeyDown = (event, editor, next) => {
     for (const shortcut of Object.values(shortcuts)) {
@@ -83,9 +100,20 @@ export default class PageBodyEditor extends Component {
 
         case 'title':
         return (
-          <h1 {...props.attributes}>
+          <h2 {...props.attributes}
+            className="p-title"
+          >
             {props.children}
-          </h1>
+          </h2>
+        );
+
+        case 'heading':
+        return (
+          <h6 {...props.attributes}
+            className="p-heading"
+          >
+            {props.children}
+          </h6>
         );
 
       default:
@@ -125,26 +153,22 @@ export default class PageBodyEditor extends Component {
   render() {
     return (
       // <Paper>
-        <div>
-          <Editor
-            value={this.state.value}
-            onChange={this.onChange}
-            renderNode={this.renderNode}
-            renderMark={this.renderMark}
-            onKeyDown={this.onKeyDown}
-            autoFocus
-          />
+        <div className="row">
           <Toolbar>
-            <ToolbarButton>
-              Italics
-            </ToolbarButton>
-            <ToolbarButton>
-              Bold
-            </ToolbarButton>
-            <ToolbarButton>
-              Underline
-            </ToolbarButton>
           </Toolbar>
+          <Content>
+            <Header/>
+            <Page>
+              <Editor
+                value={this.state.value}
+                onChange={this.onChange}
+                renderNode={this.renderNode}
+                renderMark={this.renderMark}
+                onKeyDown={this.onKeyDown}
+                autoFocus
+              />
+            </Page>
+          </Content>
         </div>
       // </Paper>
     );
